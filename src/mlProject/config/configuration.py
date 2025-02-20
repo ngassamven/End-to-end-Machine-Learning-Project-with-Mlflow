@@ -1,6 +1,7 @@
 from mlProject.constants import *
 from mlProject.utils.common import read_yaml,create_directories
-from mlProject.entity.config_entity import DataIngestionConfig
+from mlProject.entity.config_entity import ( DataIngestionConfig, 
+                                            DataValidationConfig)
 from pathlib import Path
 
 # Définir les chemins par défaut
@@ -31,4 +32,23 @@ class ConfigurationManager:
             source_url=config["source_URL"],  # Assurez-vous que la clé est bien "source_URL" dans config.yaml
             local_data_file=Path(config["local_data_file"]),
             unzip_dir=Path(config["unzip_dir"])
+        )
+    
+
+
+    def get_data_validation_config(self) -> DataValidationConfig:
+        """Récupère la configuration pour l'ingestion des données."""
+        config = self.config["data_validation"]  # Dictionnaire contenant la config d'ingestion
+        schema = self.schema["COLUMNS"]
+
+
+        # Créer les répertoires nécessaires
+        create_directories([Path(config["root_dir"])])
+
+        # Retourner l'objet DataIngestionConfig
+        return DataValidationConfig (
+            root_dir=Path(config["root_dir"]),
+            STATUS_FILE=config["STATUS_FILE"],  
+            unzip_data_dir=Path(config["unzip_data_dir"]),  # Correction de la parenthèse
+            all_schema=schema   # Correction : utilisation du dictionnaire
         )
