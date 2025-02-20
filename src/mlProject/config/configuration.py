@@ -1,7 +1,9 @@
 from mlProject.constants import *
 from mlProject.utils.common import read_yaml,create_directories
 from mlProject.entity.config_entity import ( DataIngestionConfig, 
-                                            DataValidationConfig)
+                                            DataValidationConfig,
+                                            DataTransformationConfig,
+                                            ModelTrainerConfig)
 from pathlib import Path
 
 # Définir les chemins par défaut
@@ -52,3 +54,41 @@ class ConfigurationManager:
             unzip_data_dir=Path(config["unzip_data_dir"]),  # Correction de la parenthèse
             all_schema=schema   # Correction : utilisation du dictionnaire
         )
+    
+
+
+
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        """Récupère la configuration pour la transformation des données."""
+        config = self.config["data_transformation"]  # Dictionnaire contenant la config de transformation
+
+        # Créer les répertoires nécessaires
+        create_directories([Path(config["root_dir"])])
+
+        # Retourner l'objet DataTransformationConfig
+        return DataTransformationConfig(
+            root_dir=Path(config["root_dir"]),
+            data_path=Path(config["data_path"])  # Correction ici
+        )
+
+    def get_model_trainer_config(self) -> ModelTrainerConfig:
+        """Récupère la configuration pour l'ingestion des données."""
+        config  = self.config["model_trainer"]
+        params = self.params["ElasticNet"]
+        schema = self.schema["TARGET_COLUMN"]
+
+
+        # Créer les répertoires nécessaires
+        create_directories([Path(config["root_dir"])])
+
+        
+        # Retourner l'objet DataTransformationConfig
+        return ModelTrainerConfig(
+            root_dir=Path(config["root_dir"]),
+            train_data_path= Path(config["train_data_path"]),
+            test_data_path= Path(config["test_data_path"]),
+            model_name= config["model_name"],  # Pas besoin de Path pour une string simple
+            alpha= params["alpha"],  # ⬅️ Garde ça comme float
+            l1_ratio= params["l1_ratio"],  # ⬅️ Garde ça comme float
+            target_column = schema["name"]
+)
