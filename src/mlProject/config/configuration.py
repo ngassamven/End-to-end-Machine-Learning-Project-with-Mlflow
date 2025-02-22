@@ -3,7 +3,8 @@ from mlProject.utils.common import read_yaml,create_directories
 from mlProject.entity.config_entity import ( DataIngestionConfig, 
                                             DataValidationConfig,
                                             DataTransformationConfig,
-                                            ModelTrainerConfig)
+                                            ModelTrainerConfig,
+                                            ModelEvaluationConfig)
 from pathlib import Path
 
 # Définir les chemins par défaut
@@ -92,3 +93,28 @@ class ConfigurationManager:
             l1_ratio= params["l1_ratio"],  # ⬅️ Garde ça comme float
             target_column = schema["name"]
 )
+    
+
+
+    def get_model_evaluation_config(self) -> ModelEvaluationConfig:
+        try:
+            config = self.config["model_evaluation"]
+        except KeyError:
+            raise KeyError("Missing 'model_evaluation' section in the configuration file.")
+    
+        params = self.params["ElasticNet"]
+        schema = self.schema["TARGET_COLUMN"]
+
+    # Create the necessary directories
+        create_directories([Path(config["root_dir"])])
+
+    # Return the ModelEvaluationConfig object
+        return ModelEvaluationConfig(
+            root_dir=Path(config["root_dir"]),
+            test_data_path=Path(config["test_data_path"]),
+            model_path=config["model_path"],
+            all_params=params,
+            metric_file_name=Path(config["metric_file_name"]),
+            target_column=schema["name"],
+            mlflow_uri="https://dagshub.com/ngassamven/End-to-end-Machine-Learning-with-Mlflow.mlflow",
+    )
