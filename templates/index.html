@@ -1,142 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Wine Quality Prediction" />
-    <meta name="author" content="Your Name" />
-    <title>Wine Quality Prediction</title>
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/favicon.ico') }}" />
-    
-    <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet" />
-    
-    <!-- Bootstrap & Custom Styles -->
-    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='css2/style.css') }}" />
-</head>
-<body>
-
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
-        <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
-                Menu <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                    <!-- Future navigation links -->
-                </ul>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Wine Quality Prediction Web App" />
+        <meta name="author" content="NGASSAM KATE Venceslas Osée" />
+        <title>Wine Quality Prediction</title>
+        <link rel="icon" type="image/x-icon" href="static/assets/favicon.ico" />
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <!-- Font Awesome icons -->
+        <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+        <!-- Custom CSS -->
+        <link href="static/css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="/">Home</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">À propos de moi</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-
-    <!-- Header -->
-    <header class="masthead" style="background-image: url('{{ url_for('static', filename='assets/img/wine.jpg') }}');">
-        <div class="container position-relative px-4 px-lg-5">
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <div class="site-heading">
-                        <h1>Wine Quality Prediction</h1>
-                        <span class="subheading">A Wine Quality Checking Web App</span>
+        </nav>
+        
+        <!-- Header -->
+        <header class="masthead text-white text-center py-5" style="background-image: url('static/assets/img/wine.jpg'); background-size: cover;">
+            <div class="container">
+                <h1 class="fw-bold">Wine Quality Prediction</h1>
+                <p class="lead">A Wine Quality Checking Web App</p>
+            </div>
+        </header>
+        
+        <!-- Form Section -->
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card p-4 shadow">
+                        <h2 class="text-center">Please Fill The Information</h2>
+                        <form action="/predict" method="post">
+                            <div class="mb-3">
+                                <label for="fixed_acidity" class="form-label">Fixed Acidity:</label>
+                                <input type="text" class="form-control" name="fixed_acidity" id="fixed_acidity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="volatile_acidity" class="form-label">Volatile Acidity:</label>
+                                <input type="text" class="form-control" name="volatile_acidity" id="volatile_acidity" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="citric_acid" class="form-label">Citric Acid:</label>
+                                <input type="text" class="form-control" name="citric_acid" id="citric_acid" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="residual_sugar" class="form-label">Residual Sugar:</label>
+                                <input type="text" class="form-control" name="residual_sugar" id="residual_sugar" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="chlorides" class="form-label">Chlorides:</label>
+                                <input type="text" class="form-control" name="chlorides" id="chlorides" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="free_sulfur_dioxide" class="form-label">Free Sulfur Dioxide:</label>
+                                <input type="text" class="form-control" name="free_sulfur_dioxide" id="free_sulfur_dioxide" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="total_sulfur_dioxide" class="form-label">Total Sulfur Dioxide:</label>
+                                <input type="text" class="form-control" name="total_sulfur_dioxide" id="total_sulfur_dioxide" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="density" class="form-label">Density:</label>
+                                <input type="text" class="form-control" name="density" id="density" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pH" class="form-label">pH:</label>
+                                <input type="text" class="form-control" name="pH" id="pH" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="sulphates" class="form-label">Sulphates:</label>
+                                <input type="text" class="form-control" name="sulphates" id="sulphates" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="alcohol" class="form-label">Alcohol:</label>
+                                <input type="text" class="form-control" name="alcohol" id="alcohol" required>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary">Predict</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
-
-    <!-- Form -->
-    <div class="container px-4 px-lg-5">
-        <div class="page-content">
-            <div class="form-v9-content" style="background-image: url('{{ url_for('static', filename='assets/img/form-v9.jpg') }}');">
-                <form class="form-detail" action="/predict" method="post">
-                    <h2>Please Fill The Information</h2>
-
-                    <div class="form-row-total">
-                        <div class="form-row">
-                            <label for="fixed_acidity">Fixed Acidity:</label>
-                            <input type="number" step="any" name="fixed_acidity" id="fixed_acidity" class="input-text" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="volatile_acidity">Volatile Acidity:</label>
-                            <input type="number" step="any" name="volatile_acidity" id="volatile_acidity" class="input-text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row-total">
-                        <div class="form-row">
-                            <label for="citric_acid">Citric Acid:</label>
-                            <input type="number" step="any" name="citric_acid" id="citric_acid" class="input-text" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="residual_sugar">Residual Sugar:</label>
-                            <input type="number" step="any" name="residual_sugar" id="residual_sugar" class="input-text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row-total">
-                        <div class="form-row">
-                            <label for="chlorides">Chlorides:</label>
-                            <input type="number" step="any" name="chlorides" id="chlorides" class="input-text" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="free_sulfur_dioxide">Free Sulfur Dioxide:</label>
-                            <input type="number" step="any" name="free_sulfur_dioxide" id="free_sulfur_dioxide" class="input-text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row-total">
-                        <div class="form-row">
-                            <label for="total_sulfur_dioxide">Total Sulfur Dioxide:</label>
-                            <input type="number" step="any" name="total_sulfur_dioxide" id="total_sulfur_dioxide" class="input-text" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="density">Density:</label>
-                            <input type="number" step="any" name="density" id="density" class="input-text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row-total">
-                        <div class="form-row">
-                            <label for="pH">pH:</label>
-                            <input type="number" step="any" name="pH" id="pH" class="input-text" required>
-                        </div>
-                        <div class="form-row">
-                            <label for="sulphates">Sulphates:</label>
-                            <input type="number" step="any" name="sulphates" id="sulphates" class="input-text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row-total">
-                        <div class="form-row">
-                            <label for="alcohol">Alcohol:</label>
-                            <input type="number" step="any" name="alcohol" id="alcohol" class="input-text" required>
-                        </div>
-                    </div>
-
-                    <div class="form-row-last">
-                        <input type="submit" class="register" value="Predict">
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="border-top">
-        <div class="container px-4 px-lg-5">
-            <div class="small text-center text-muted fst-italic">Your Website &copy; 2025</div>
-        </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-
-</body>
+        
+        <!-- About Section -->
+        <section id="about" class="container py-5">
+            <h2 class="text-center">À propos de moi</h2>
+            <p class="text-center">Je suis NGASSAM KATE Venceslas Osée, Data Scientist avec des compétences en Cloud, Docker et Machine Learning.</p>
+            <p class="text-center"><a href="https://www.linkedin.com/in/venceslas-osee-ngassam-kate-346511197/" target="_blank">LinkedIn</a> | <a href="https://github.com/ngassamven/End-to-end-Machine-Learning-Project-with-Mlflow" target="_blank">GitHub</a></p>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3">
+            <p>&copy; 2025 NGASSAM KATE Venceslas Osée | Wine Quality Prediction</p>
+        </footer>
+        
+        <!-- Bootstrap JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>
